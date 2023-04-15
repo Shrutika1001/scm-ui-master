@@ -1,0 +1,14 @@
+.inventoryTable {
+    margin-top: 100px;
+}
+
+.tabletext {
+    margin-left: 20px;
+}
+
+.grid-container {
+    display: grid;
+    width: 100%;
+    margin-left: 20px;
+    position: relative;
+}
