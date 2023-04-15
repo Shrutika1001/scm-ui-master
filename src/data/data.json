@@ -4,50 +4,48 @@
     "paragraph": "Supply chain management (SCM) is management of the flow of goods, data, and finances related to a product or service, from the procurement of raw materials to the delivery of the product at its final destination."
   },
   "About": {
-    "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "paragraph": "Every organization, whether big or small, has challenges to overcome and manage the information of product, customer, order, delivery, and shipment. Every supply chain management system has different customer needs, therefore we design exclusive employee management systems that are adapted to your managerial requirements. This is designed to assist in strategic planning and will help you ensure that your organization is equipped with the right level of information and details for your future goals.",
     "Why": [
-      "Lorem ipsum dolor",
-      "Tempor incididunt",
-      "Lorem ipsum dolor",
-      "Incididunt ut labore"
+      "Simplified Inventory Management",
+      "Faster Response Time",
+      "Streamline Quotation Management"
     ],
     "Why2": [
-      "Aliquip ex ea commodo",
-      "Lorem ipsum dolor",
-      "Exercitation ullamco",
-      "Lorem ipsum dolor"
+      "Accurate Invoicing",
+      "Cross Platform Product Info",
+      "Financial Performance"
     ]
   },
   "Services": [
     {
       "icon": "fa fa-pie-chart",
       "name": "Manage Inventory",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Provide you with data to manage assets and meet record throughout the life cycle of each asset. "
     },
     {
       "icon": "fa fa-cart-arrow-down",
       "name": "Quotations",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Admin can access detailed information about the products and services."
     },
     {
       "icon": "fa fa-cloud-download",
       "name": "Invoices",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Admin can generate  and manage invoices for products delivered based on payment terms."
     },
     {
       "icon": "fa fa-language",
       "name": "Excel convertor",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Users can easily get detailed product info in form of excel sheet with just one click."
     },
     {
       "icon": "fa fa-group",
       "name": "WhatsApp Sharing",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Enables user to get reports in form of excel sheet on Whatsapp."
     },
     {
       "icon": "fa fa-cloud-download",
       "name": "E-Mail Sharing",
-      "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+      "text": "Enables user to get reports in form of excel sheet on email."
     }
   ],
   "Testimonials": [
@@ -105,9 +103,9 @@
     }
   ],
   "Contact": {
-    "address": "4321 California St, San Francisco, CA 12345 ",
-    "phone": "+1 123 456 1234",
-    "email": "info@company.com",
+    "address": "4321 Sambalpur, Odisha ",
+    "phone": "+91 1234567890",
+    "email": "hindalco@company.com",
     "facebook": "fb.com",
     "twitter": "twitter.com",
     "youtube": "youtube.com"
