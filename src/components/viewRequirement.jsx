@@ -95,8 +95,15 @@ export const ViewRequirement = (props) => {
       <h2 className="tabletext">Create Requirement</h2>
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
       <button onClick={() => navigate("/addreq")} className="grid">Add Requirement</button>
+      <input
+            type="text"
+            class="form-control"
+            id="pname"
+            placeholder="WhatsApp Number"
+          />
       <button onClick={() => {
-        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"requirement.xlsx"});
+        console.log();
+        axios.post("http://localhost:8080/send/file", {number: document.getElementById("pname").value, fileName:"inventory.xlsx"});
       }}>Send To WhatsApp</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}

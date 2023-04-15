@@ -218,9 +218,17 @@ export const Inventory = (props) => {
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
       <button onClick={() => navigate("/addproduct")} className="grid">Add Product</button>
       <div class="custom-file">
+      <input
+            type="text"
+            class="form-control"
+            id="pname"
+            placeholder="WhatsApp Number"
+          />
       <button onClick={() => {
-        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"inventory.xlsx"});
+        console.log();
+        axios.post("http://localhost:8080/send/file", {number: document.getElementById("pname").value, fileName:"inventory.xlsx"});
       }}>Send To WhatsApp</button>
+      
       </div>
         <Box sx={{ height: "100%", width: "100%", backgroundColor: "#b5b3ae" }}>
           <DataGrid
