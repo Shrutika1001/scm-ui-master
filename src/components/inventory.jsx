@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "./inventory.css";
 import { useState } from "react";
 import writeXlsxFile from 'write-excel-file'
+import { useNavigate } from "react-router-dom";
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
@@ -146,7 +147,7 @@ const rowData = [
 function exportToExcel() {
   let HEADER_ROW = [];
   columns.forEach((col) => {
-      if(col.headerName !== 'delete') {
+      if(col.headerName !== 'delete' && col.headerName !== 'edit') {
         HEADER_ROW.push({
           value: col.headerName,
           fontWeight: 'bold'
@@ -206,12 +207,14 @@ function exportToExcel() {
 export const Inventory = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [rows, setrows] = useState(rowData);
+  const navigate = useNavigate();
   return (
     <>
       <NavBar />
       <div className="inventoryTable">
       <h2 className="grid">Inventory</h2>
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
+      <button onClick={() => navigate("/addproduct")} className="grid">Add Product</button>
         <Box sx={{ height: "100%", width: "100%", backgroundColor: "#b5b3ae" }}>
           <DataGrid
             sx={{ fontSize: 20 }}

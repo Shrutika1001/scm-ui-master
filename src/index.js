@@ -11,11 +11,31 @@ import { ViewQuotations } from './components/viewQuotation';
 import { ViewInvoice } from './components/viewInvoice';
 import { ViewRequirement } from './components/viewRequirement';
 import { Login } from './components/login';
+import { AddProduct } from './components/addProduct';
+import { AddRequirement } from './components/addRequirement';
+import { AddQuotation } from './components/addQuotation';
+import { AddInvoice } from './components/addInvoice';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/addproduct",
+    element: <AddProduct />,
+  },
+  {
+    path: "/addreq",
+    element: <AddRequirement />,
+  },
+  {
+    path: "/addinvoice",
+    element: <AddInvoice />,
+  },
+  {
+    path: "/addquo",
+    element: <AddQuotation />,
   },
   {
     path: "/inventory",

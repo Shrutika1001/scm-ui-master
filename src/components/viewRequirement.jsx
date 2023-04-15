@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavBar } from "./navBar";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import './inventory.css';
+import writeXlsxFile from "write-excel-file";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -25,9 +27,11 @@ const columns = [
     sortable: false,
     width: 210,
   },
+  { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
+  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
 ];
 
-const rows = [
+const samplerows = [
   { id: 1, product: "Snow", category: "Jon", availibility: 35, required: 1, selected: false },
   { id: 2, product: "Lannister", category: "Cersei", availibility: 42, required: 1, selected: false },
   { id: 3, product: "Lannister", category: "Jaime", availibility: 45, required: 1, selected: false },
@@ -40,11 +44,57 @@ const rows = [
 ];
 
 export const ViewRequirement = (props) => {
+  const [rows, setrows] = useState(samplerows);
+  function exportToExcel() {
+    let HEADER_ROW = [];
+    columns.forEach((col) => {
+        if(col.headerName !== 'delete' && col.headerName !== 'edit') {
+          HEADER_ROW.push({
+            value: col.headerName,
+            fontWeight: 'bold'
+          })
+        }
+      });
+      let ROWS = [];
+      rows.forEach((row) => {
+        ROWS.push([
+          {
+            type: Number,
+            value: row.id,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.product,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.category
+          },
+          {
+            type: Number,
+            value: row.required,
+            width: 20 
+          },
+        ]);
+      })  
+      const data = [
+        HEADER_ROW,
+        ...ROWS,
+      ];
+      writeXlsxFile(data, {
+        fileName: 'requirement.xlsx'
+      });
+    }
+    const navigate = useNavigate();
   return (
     <>
       <NavBar />
       <div className="inventoryTable">
-      <h2 className="tabletext">View Requirement</h2>
+      <h2 className="tabletext">Create Requirement</h2>
+      <button onClick={exportToExcel} className="grid">Export to Excel</button>
+      <button onClick={() => navigate("/addreq")} className="grid">Add Requirement</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}
           rows={rows}
@@ -59,6 +109,14 @@ export const ViewRequirement = (props) => {
           pavailibilitySizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onCellClick={(cell) => {
+              if(cell.field === 'delete') {
+                setrows(rows.filter((r) => r.id !== cell.id));
+              } if(cell.field === 'edit') {
+                // edit page
+                // setrows(rows.filter((r) => r.id !== cell.id));
+              }
+            }}
         />
       </Box>
       </div>

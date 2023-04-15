@@ -1,7 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Header = (props) => {
+  const navigate = useNavigate();
+  function authnpush() {
+    // navigate("/login");
+    const loggedIn = localStorage.getItem("loggedIn");
+    console.log('====================================');
+    console.log(loggedIn);
+    console.log('====================================');
+    if(loggedIn === null) {
+      navigate("/login");
+    } else {
+      navigate("/inventory");
+    }
+  }
   return (
     <header id="header">
       <div className="intro">
@@ -14,12 +27,12 @@ export const Header = (props) => {
                   <span></span>
                 </h1>
                 <p>{props.data ? props.data.paragraph : "Loading"}</p>
-                <Link
-                  to="/inventory"
+                <button
+                  onClick={authnpush}
                   className="btn btn-custom btn-lg page-scroll"
                 >
                   Get Started
-                </Link>{" "}
+                </button>{" "}
               </div>
             </div>
           </div>

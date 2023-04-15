@@ -49,7 +49,7 @@ export const NavBar = (props) => {
               <Link to="/invoices">Invoice</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link to="/" onClick={localStorage.removeItem("loggedIn")}>Logout</Link>
             </li>
           </ul>
         </div>

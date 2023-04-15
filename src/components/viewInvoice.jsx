@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavBar } from "./navBar";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import './inventory.css';
+import writeXlsxFile from "write-excel-file";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "Invoice ID", width: 120 },
@@ -37,10 +39,12 @@ const columns = [
     width: 200,
     editable: true,
   },
+  { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
+  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
   
 ];
 
-const rows = [
+const samplerows = [
   { id: 1, oid: 1, sid: 1, dop: "2023-3-14", mop: "Cash", amtdue: "40000.00", amtpaid: "60000.00", product: "Snow", category: "Jon", availibility: 35, required: 1, selected: false },
   { id: 2, oid: 1, sid: 1, dop: "2023-3-14", mop: "Cash", amtdue: "40000.00", amtpaid: "60000.00", product: "Lannister", category: "Cersei", availibility: 42, required: 1, selected: false },
   { id: 3, oid: 1, sid: 1, dop: "2023-3-14", mop: "Cash", amtdue: "40000.00", amtpaid: "60000.00", product: "Lannister", category: "Jaime", availibility: 45, required: 1, selected: false },
@@ -53,11 +57,73 @@ const rows = [
 ];
 
 export const ViewInvoice = (props) => {
+  const [rows, setrows] = useState(samplerows);
+  function exportToExcel() {
+    let HEADER_ROW = [];
+    columns.forEach((col) => {
+        if(col.headerName !== 'delete' && col.headerName !== 'edit') {
+          HEADER_ROW.push({
+            value: col.headerName,
+            fontWeight: 'bold'
+          })
+        }
+      });
+      let ROWS = [];
+      rows.forEach((row) => {
+        ROWS.push([
+          {
+            type: Number,
+            value: row.id,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.oid,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.dop,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.mop,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.amtdue,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.amtpaid,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.sid,
+            width: 20 
+          },
+        ]);
+      })  
+      const data = [
+        HEADER_ROW,
+        ...ROWS,
+      ];
+      writeXlsxFile(data, {
+        fileName: 'invoice.xlsx'
+      });
+    }
+    const navigate = useNavigate();
   return (
     <>
       <NavBar />
       <div className="inventoryTable">
       <h2 className="tabletext">View Invoice</h2>
+      <button onClick={exportToExcel} className="grid">Export to Excel</button>
+      <button onClick={() => navigate("/addinvoice")} className="grid">Add Invoice</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}
           rows={rows}
@@ -72,6 +138,14 @@ export const ViewInvoice = (props) => {
           pavailibilitySizeOptions={[5]}
           checkboxSelection
           disableRowSelectionOnClick
+          onCellClick={(cell) => {
+              if(cell.field === 'delete') {
+                setrows(rows.filter((r) => r.id !== cell.id));
+              } if(cell.field === 'edit') {
+                // edit page
+                // setrows(rows.filter((r) => r.id !== cell.id));
+              }
+            }}
         />
       </Box>
       </div>

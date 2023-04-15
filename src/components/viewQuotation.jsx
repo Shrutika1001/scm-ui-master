@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavBar } from "./navBar";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import "./inventory.css";
+import writeXlsxFile from "write-excel-file";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { field: "id", headerName: "Quotation ID", width: 150 },
@@ -47,9 +49,11 @@ const columns = [
       `${params.row.category || ""} ${params.row.product || ""}`, */
   },
   { field: "pid", headerName: "Product ID", width: 150 },
+  { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
+  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
 ];
 
-const rows = [
+const samplerows = [
   {
     id: 1,
     sid: 1,
@@ -170,11 +174,89 @@ const rows = [
 ];
 
 export const ViewQuotations = (props) => {
+  const [rows, setrows] = useState(samplerows);
+  function exportToExcel() {
+    let HEADER_ROW = [];
+    columns.forEach((col) => {
+        if(col.headerName !== 'delete' && col.headerName !== 'edit') {
+          HEADER_ROW.push({
+            value: col.headerName,
+            fontWeight: 'bold'
+          })
+        }
+      });
+      let ROWS = [];
+      rows.forEach((row) => {
+        ROWS.push([
+          {
+            type: Number,
+            value: row.id,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.sid,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.product,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.category,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.timeofarrival,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.availibility,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.createddate,
+            width: 20 
+          },
+          {
+            type: String,
+            value: row.status,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.price,
+            width: 20 
+          },
+          {
+            type: Number,
+            value: row.pid,
+            width: 20 
+          },
+        ]);
+      })  
+      const data = [
+        HEADER_ROW,
+        ...ROWS,
+      ];
+      writeXlsxFile(data, {
+        fileName: 'quotations.xlsx'
+      });
+    }
+
+    const navigate = useNavigate();
   return (
     <>
       <NavBar />
       <div className="inventoryTable">
         <h2 className="tabletext">View Quotations</h2>
+        <button onClick={exportToExcel} className="grid">Export to Excel</button>
+        <button onClick={() => navigate("/addquo")} className="grid">Add Quotation</button>
         <Box sx={{ height: "100%", width: "100%" }}>
           <DataGrid
             sx={{ fontSize: 20 }}
@@ -190,7 +272,15 @@ export const ViewQuotations = (props) => {
             pavailibilitySizeOptions={[5]}
             checkboxSelection
             disableRowSelectionOnClick
-          />
+            onCellClick={(cell) => {
+              if(cell.field === 'delete') {
+                setrows(rows.filter((r) => r.id !== cell.id));
+              } if(cell.field === 'edit') {
+                // edit page
+                // setrows(rows.filter((r) => r.id !== cell.id));
+              }
+            }}
+        />
         </Box>
       </div>
     </>
