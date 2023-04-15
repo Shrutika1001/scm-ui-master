@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import "./inventory.css";
 import writeXlsxFile from "write-excel-file";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const columns = [
   { field: "id", headerName: "Quotation ID", width: 150 },
@@ -50,127 +51,90 @@ const columns = [
   },
   { field: "pid", headerName: "Product ID", width: 150 },
   { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
-  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
 ];
 
 const samplerows = [
   {
     id: 1,
     sid: 1,
-    product: "Snow",
-    category: "Jon",
+    product: "Coal",
+    category: "Bituminious",
     availibility: 35,
     pid: "1",
     status: "Confirmed",
-    price: 100.0,
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 2,
     sid: 1,
-    product: "Lannister",
-    category: "Cersei",
+    product: "CP coke",
+    category: "honeycomb coke",
     price: 100.0,
     availibility: 42,
     pid: "1",
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
-    status: "Confirmed",
-    selected: false,
   },
   {
     id: 3,
     sid: 1,
-    product: "Lannister",
-    category: "Jaime",
+    product: "Pitch",
+    category: "Pitch",
     timeofarrival: "4",
     createddate: "2023-3-14 2:21:00",
     status: "Pending",
-    price: 100.0,
-    availibility: 45,
-    pid: "1",
-    selected: false,
   },
   {
     id: 4,
     sid: 1,
-    product: "Stark",
-    category: "Arya",
+    product: "Coal",
+    category: "Anthracite",
     status: "Pending",
     availibility: 16,
     price: 100.0,
-    pid: "1",
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 5,
     sid: 1,
-    product: "Targaryen",
-    category: "Daenerys",
+    product: "Pitch",
+    category: "pitch",
     availibility: null,
     status: "Pending",
     pid: "1",
-    price: 100.0,
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 6,
     sid: 1,
-    product: "Melisandre",
-    category: null,
+    product: "Wire rods",
+    category: "Primary aluminium",
     status: "Pending",
     availibility: 150,
     pid: "1",
-    price: 100.0,
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 7,
     sid: 1,
-    product: "Clifford",
-    category: "Ferrara",
+    product: "Billets",
+    category: "Primary aluminium",
     availibility: 44,
     pid: "1",
     selected: false,
-    price: 100.0,
-    status: "Pending",
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 8,
     sid: 1,
-    product: "Frances",
-    category: "Rossini",
+    product: "Coal",
+    category: "Anthracite",
     status: "Pending",
     availibility: 36,
     price: 100.0,
-    pid: "1",
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
   },
   {
     id: 9,
     sid: 1,
-    product: "Roxie",
-    category: "Harvey",
+    product: "Ingots",
+    category: "primary aluminium",
     status: "Pending",
     availibility: 65,
-    pid: "1",
-    price: 100.0,
-    selected: false,
-    timeofarrival: "4",
-    createddate: "2023-3-14 2:21:00",
-  },
+    pid: "1"
+   },
 ];
 
 export const ViewQuotations = (props) => {
@@ -219,7 +183,7 @@ export const ViewQuotations = (props) => {
             width: 20 
           },
           {
-            type: Number,
+            type: String,
             value: row.createddate,
             width: 20 
           },
@@ -244,6 +208,9 @@ export const ViewQuotations = (props) => {
         HEADER_ROW,
         ...ROWS,
       ];
+      console.log('====================================');
+      console.log(data);
+      console.log('====================================');
       writeXlsxFile(data, {
         fileName: 'quotations.xlsx'
       });
@@ -257,6 +224,9 @@ export const ViewQuotations = (props) => {
         <h2 className="tabletext">View Quotations</h2>
         <button onClick={exportToExcel} className="grid">Export to Excel</button>
         <button onClick={() => navigate("/addquo")} className="grid">Add Quotation</button>
+        <button onClick={() => {
+        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"quotations.xlsx"});
+      }}>Send To WhatsApp</button>
         <Box sx={{ height: "100%", width: "100%" }}>
           <DataGrid
             sx={{ fontSize: 20 }}

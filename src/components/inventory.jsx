@@ -6,6 +6,7 @@ import "./inventory.css";
 import { useState } from "react";
 import writeXlsxFile from 'write-excel-file'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
   {
@@ -49,16 +50,15 @@ const columns = [
       `${params.row.category || ""} ${params.row.product || ""}`, */
   },
   { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
-  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
 ];
 
 
 const rowData = [
   {
     id: 1,
-    product: "Snow",
-    supplier: "Snow",
-    category: "Jon",
+    product: "Pitch",
+    supplier: "Hindalco",
+    category: "Pitch",
     price: 100.0,
     availibility: 35,
     required: 1,
@@ -66,58 +66,56 @@ const rowData = [
   },
   {
     id: 2,
-    product: "Lannister",
-    supplier: "Snow",
+    product: "Coal",
+    supplier: "Hindalco",
     price: 100.0,
-    category: "Cersei",
+    category: "Anthracite",
     availibility: 42,
     required: 1,
     selected: false,
   },
   {
     id: 3,
-    product: "Lannister",
-    supplier: "Snow",
+    product: "Cp coke",
+    supplier: "Hindalco",
     price: 100.0,
-    category: "Jaime",
+    category: "Honeycomb coke",
     availibility: 45,
     required: 1,
     selected: false,
   },
   {
     id: 4,
-    product: "Stark",
-    supplier: "Snow",
-    category: "Arya",
+    product: "Coal",
+    supplier: "Hindalco",
+    category: "Bituminous",
     availibility: 16,
     required: 1,
     selected: false,
   },
   {
     id: 5,
-    product: "Targaryen",
-    supplier: "Snow",
+    product: "Wire rods",
+    supplier: "Hindalco",
     price: 100.0,
-    category: "Daenerys",
+    category: "Primary aluminium",
     availibility: null,
     required: 1,
     selected: false,
   },
   {
     id: 6,
-    product: "Melisandre",
-    supplier: "Snow",
+    product: "Billets",
+    supplier: "Hindalco",
     category: null,
     availibility: 150,
     price: 100.0,
-    required: 1,
-    selected: false,
   },
   {
     id: 7,
-    product: "Clifford",
-    supplier: "Snow",
-    category: "Ferrara",
+    product: "Ingots",
+    supplier: "Hindalco",
+    category: "Primary aluminium",
     availibility: 44,
     price: 100.0,
     required: 1,
@@ -125,9 +123,9 @@ const rowData = [
   },
   {
     id: 8,
-    product: "Frances",
-    supplier: "Snow",
-    category: "Rossini",
+    product: "Mn flake",
+    supplier: "Hindalco",
+    category: "Chemical",
     availibility: 36,
     price: 100.0,
     required: 1,
@@ -135,14 +133,13 @@ const rowData = [
   },
   {
     id: 9,
-    product: "Roxie",
-    supplier: "Snow",
-    category: "Harvey",
+    product: "chromium metal",
+    supplier: "Hindalco",
+    category: "Metal",
     availibility: 65,
     price: 100.0,
     required: 1,
-    selected: false,
-  },
+  }
 ];
 function exportToExcel() {
   let HEADER_ROW = [];
@@ -202,11 +199,16 @@ function exportToExcel() {
   writeXlsxFile(data, {
     fileName: 'inventory.xlsx'
   });
+
+  // 
 }
 
 export const Inventory = (props) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [rows, setrows] = useState(rowData);
+  const [file, setfile] = useState();
+
+  const [isenabled, setisenabled] = useState(false);
   const navigate = useNavigate();
   return (
     <>
@@ -215,6 +217,11 @@ export const Inventory = (props) => {
       <h2 className="grid">Inventory</h2>
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
       <button onClick={() => navigate("/addproduct")} className="grid">Add Product</button>
+      <div class="custom-file">
+      <button onClick={() => {
+        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"inventory.xlsx"});
+      }}>Send To WhatsApp</button>
+      </div>
         <Box sx={{ height: "100%", width: "100%", backgroundColor: "#b5b3ae" }}>
           <DataGrid
             sx={{ fontSize: 20 }}

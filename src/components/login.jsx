@@ -30,7 +30,7 @@ export function Login() {
         <div class="shape"></div>
     </div>
     <form>
-        <h3>Login Here</h3>
+        <h3>Login </h3>
         <label for="username">Email</label>
         <input type="text" value={email} onChange={e => setemail(e.target.value)} placeholder="Email" id="username"/>
 
@@ -39,7 +39,9 @@ export function Login() {
         <button className='loginwithmail' onClick={loginWithMail}> Log In</button>
         <div class="social">
           <div class="go"><i class="fab fa-add"></i>  Register</div>
-          <div class="fb"><i class="fab fa-whatsapp"></i>  Whatsapp</div>
+          <Link to="/lwhats">
+            <div class="fb"><i class="fab fa-whatsapp"></i>  Whatsapp</div>
+          </Link>
         </div>
     </form>
     </>

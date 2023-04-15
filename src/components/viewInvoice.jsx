@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import './inventory.css';
 import writeXlsxFile from "write-excel-file";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const columns = [
   { field: "id", headerName: "Invoice ID", width: 120 },
@@ -40,7 +41,6 @@ const columns = [
     editable: true,
   },
   { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
-  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
   
 ];
 
@@ -124,6 +124,9 @@ export const ViewInvoice = (props) => {
       <h2 className="tabletext">View Invoice</h2>
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
       <button onClick={() => navigate("/addinvoice")} className="grid">Add Invoice</button>
+      <button onClick={() => {
+        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"invoice.xlsx"});
+      }}>Send To WhatsApp</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}
           rows={rows}

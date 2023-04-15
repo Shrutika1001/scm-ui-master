@@ -23,11 +23,13 @@ export const AddProduct = () => {
           />
           <label style={{color: "black", marginBottom: 0}} for="category">Category</label>
         <select class="form-control" id="category">
-        <option>Metal</option>
-        <option>Steel</option>
-        <option>Brass</option>
-        <option>Copper</option>
-        <option>Iron</option>
+        <option>primary aluminium</option>
+         <option>Chemical</option>
+         <option>Anthracite</option>
+         <option>Bituminous</option>
+         <option>Pitch</option>
+         <option>Honeycomb coke</option>
+         <option>Metal</option>
         </select>
         <label style={{color: "black"}}>Quanitity Required</label>
           <input

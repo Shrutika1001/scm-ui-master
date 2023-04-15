@@ -15,6 +15,7 @@ import { AddProduct } from './components/addProduct';
 import { AddRequirement } from './components/addRequirement';
 import { AddQuotation } from './components/addQuotation';
 import { AddInvoice } from './components/addInvoice';
+import { WhatsAppAuth } from './components/whatsAppAuth';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,11 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
+    path: "/lwhats",
+    // element: <Inventory />,
+    element: <WhatsAppAuth />,
+  },
+  {
     path: "/orderHistory",
     element: <OrderHistory />,
   },
@@ -63,10 +69,10 @@ const router = createBrowserRouter([
     path: "/requirement",
     element: <ViewRequirement />,
   },
-  {
+  /* {
     path: "*",
     element: <NotFound />,
-  },
+  }, */
 ]);
 
 ReactDOM.render(

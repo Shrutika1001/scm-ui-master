@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import './inventory.css';
 import writeXlsxFile from "write-excel-file";
+import axios from "axios";
 
 const columns = [
   { field: "id", headerName: "ID", width: 90 },
@@ -34,20 +35,19 @@ const columns = [
     editable: true,
   },
   { field: "delete", headerName: "Delete", width: 90, valueGetter: () => "⭕️"},
-  { field: "edit", headerName: "Edit", width: 90, valueGetter: () => "✏️"},
 ];
 
 const samplerows = [
-  { id: 1, product: "Snow", category: "Jon", availibility: 35, required: 1, selected: false },
-  { id: 2, product: "Lannister", category: "Cersei", availibility: 42, required: 1, selected: false },
-  { id: 3, product: "Lannister", category: "Jaime", availibility: 45, required: 1, selected: false },
-  { id: 4, product: "Stark", category: "Arya", availibility: 16, required: 1, selected: false },
-  { id: 5, product: "Targaryen", category: "Daenerys", availibility: null, required: 1, selected: false },
-  { id: 6, product: "Melisandre", category: null, availibility: 150, required: 1, selected: false },
-  { id: 7, product: "Clifford", category: "Ferrara", availibility: 44, required: 1, selected: false },
-  { id: 8, product: "Frances", category: "Rossini", availibility: 36, required: 1, selected: false },
-  { id: 9, product: "Roxie", category: "Harvey", availibility: 65, required: 1, selected: false },
-];
+  { id: 1, product: "Coal", category: "Coal", availibility: 35, required: 1, selected: false },
+   { id: 2, product: "Pitch", category: "pitch", availibility: 42, required: 1, selected: false },
+   { id: 3, product: "Coal", category: "Bitumnius", availibility: 45, required: 1, selected: false },
+   { id: 4, product: "Ingots", category: "primary aluminium", availibility: 16, required: 1, selected: false },
+   { id: 5, product: "wire rods", category: "Primary aluminum", availibility: null, required: 1, selected: false },
+   { id: 6, product: "Billets", category:"Primary aluminium", availibility: 150, required: 1, selected: false },
+   { id: 7, product: "chromium", category: "chemical", availibility: 44, required: 1, selected: false },
+   { id: 8, product: "Mn Flake", category: "chemical", availibility: 36, required: 1, selected: false },
+   { id: 9, product: "Pet Coke", category: "Coke", availibility: 65, required: 1, selected: false },
+ ];
 
 export const OrderHistory = (props) => {
   const [rows, setrows] = useState(samplerows);
@@ -116,6 +116,9 @@ export const OrderHistory = (props) => {
       <div className="inventoryTable">
       <h2 className="tabletext">Order History</h2>
       <button onClick={exportToExcel} className="grid">Export to Excel</button>
+      <button onClick={() => {
+        axios.post("http://localhost:8080/send/file", {number: "6398877055", fileName:"orderHistory.xlsx"});
+      }}>Send To WhatsApp</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}
           rows={rows}
