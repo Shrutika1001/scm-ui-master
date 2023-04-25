@@ -124,7 +124,7 @@ export const OrderHistory = (props) => {
           />
       <button onClick={() => {
         console.log();
-        axios.post("http://localhost:8080/send/file", {number: document.getElementById("pname").value, fileName:"inventory.xlsx"});
+        axios.post("http://localhost:8080/send/file", {number: document.getElementById("pname").value, fileName:"orderHistory.xlsx"});
       }}>Send To WhatsApp</button>
       <Box sx={{ height: "100%", width: "100%" }}>
         <DataGrid sx={{fontSize: 20}}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "emailjs-com";
 import React from "react";
+import './contact.css';
 
 const initialState = {
   name: "",
@@ -34,8 +35,8 @@ export const Contact = (props) => {
   return (
     <div>
       <div id="contact">
-        <div className="container">
-          <div className="col-md-8">
+        <div id="mew" className="container">
+          <div className="col-md-4">
             <div className="row">
               <div className="section-title">
                 <h2>Get In Touch</h2>
@@ -44,7 +45,7 @@ export const Contact = (props) => {
                   get back to you as soon as possible.
                 </p>
               </div>
-              <form name="sentMessage" validate onSubmit={handleSubmit}>
+              <form id="mewform" validate onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="form-group">
@@ -149,9 +150,9 @@ export const Contact = (props) => {
       <div id="footer">
         <div className="container text-center">
           <p>
-            &copy; 2023 Issaaf Kattan React Land Page Template. Design by{" "}
-            <a href="http://www.templatewire.com" rel="nofollow">
-              TemplateWire
+            &copy; 2023 Hindalco Training. Design by{" "}
+            <a href="https://www.hindalco.com" rel="nofollow">
+              Hindalco Team
             </a>
           </p>
         </div>
